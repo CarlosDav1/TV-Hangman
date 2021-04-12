@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MysteryString from './MysteryString';
 import Keys from './Keys';
+import Hangman from './Hangman'
 
 interface ShowInfo{
   name: string;
@@ -26,23 +27,53 @@ async function getShow(): Promise<ShowInfo>{
 }
 
 function App() {
+
+  //The following variable stores all the current show information
+  //which includes name, language, image, genre and others
   let [show, SetShow] = useState({} as ShowInfo);
+
+  //This is a string that gets converted into a regular expression such as /[ABCDEFG]/ig. 
+  //As the user presses more buttons this string gets shorter.
   let [expression, setExpression] = useState("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
 
+  //The player's remaining lives
+  let [lives, setLives] = useState(6);
+
+  //This is a method that gets passed to all the buttons so we can know
+  //which letter got pressed by the user
   const letterSelected = (letter: string) => {
-    let newExpression = expression.replace(letter, '');
-    setExpression(newExpression); 
+
+    //if the letter is not present in the show's name we substract one life to the player
+    if(show.name.indexOf(letter) == -1 && show.name.indexOf(letter.toLowerCase()) == -1){
+      setLives(lives - 1)
+    }
+
+    //this deletes one letter from the RegEx pattern
+    setExpression(expression.replace(letter, '')); 
   }
 
+
+  //The first thing we do is call the "getShow" function and set the
+  //response as the show's information
   useEffect(() => {
     getShow().then(res => { SetShow(res); console.log(res) })
   }, [])
 
+
+  //if we don't have the show's name we display a message. If we have it
+  //then we display all the components
+  const isLoading = typeof show.name == 'undefined' 
+  ? <h1>Loading...</h1> 
+  : <div>
+      <MysteryString name={show.name} expression={expression}/>
+      <Keys letterSelected={letterSelected}/>
+      <Hangman lives={lives}/>
+  </div>
+    
   return (
-    <div>
-    <MysteryString name={show.name} expression={expression}/>
-    <Keys letterSelected={letterSelected}/>
-    </div>
+    <>
+    {isLoading}
+    </>
   );
 }
 
