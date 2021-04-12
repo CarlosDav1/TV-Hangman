@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MysteryString from './MysteryString';
+import Keys from './Keys';
 
 interface ShowInfo{
   name: string;
@@ -26,14 +27,21 @@ async function getShow(): Promise<ShowInfo>{
 
 function App() {
   let [show, SetShow] = useState({} as ShowInfo);
+  let [expression, setExpression] = useState("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
+
+  const letterSelected = (letter: string) => {
+    let newExpression = expression.replace(letter, '');
+    setExpression(newExpression); 
+  }
 
   useEffect(() => {
-    getShow().then(res => { SetShow(res) })
+    getShow().then(res => { SetShow(res); console.log(res) })
   }, [])
 
   return (
-    <div onClick={() => console.log(show)} style={{height: "200px"}}>
-      <MysteryString name={show.name}/>
+    <div>
+    <MysteryString name={show.name} expression={expression}/>
+    <Keys letterSelected={letterSelected}/>
     </div>
   );
 }

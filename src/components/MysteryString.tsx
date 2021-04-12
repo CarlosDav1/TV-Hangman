@@ -2,22 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 interface props{
     name: string
+    expression: string;
 }
 
-const HideLetters = (fullString: string): string => {
-    return typeof fullString === 'undefined'? '' : fullString.replace(/[a-z]/ig, ' _');
-}
-
-let MysteryString = ({name}: props) => {
-    let [answer, setAnswer] = useState(name);
+let MysteryString = ({name, expression}: props) => {
     let [hiddenString, setHiddenString] = useState('');
 
     useEffect(() => {
-        setAnswer(name);
-        setHiddenString(HideLetters(name));
-    }, [name]);
+        setHiddenString(name?.replace(new RegExp(expression, 'ig'), ' _ '));
+    }, [name, expression]);
 
-    return(<h1 style={{height: "200px"}} onClick={() => console.log(hiddenString)}></h1>);
+    return(<h1 onClick={() => console.log(hiddenString)}>{hiddenString}</h1>);
 }
 
 export default MysteryString;
