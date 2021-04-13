@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import MysteryString from './MysteryString';
 import Keys from './Keys';
 import Hangman from './Hangman'
 import GetShow from './GetShow'
@@ -56,7 +55,7 @@ function App() {
     const showUpperCase = show.name.toUpperCase()
     
     //if the letter is not present in the show's name we substract one life to the player
-    if(showUpperCase.indexOf(letter) == -1){ setLives(lives - 1) }
+    if(showUpperCase.indexOf(letter) == -1){ setLives(lives - 1)}
 
     //this deletes one letter from the RegEx pattern
     setExpression(expression.replace(letter, ''));
