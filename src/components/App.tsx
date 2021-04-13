@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import MysteryString from './MysteryString';
+//import MysteryString from './MysteryString';
 import Keys from './Keys';
 import Hangman from './Hangman'
+import GetShow from './GetShow'
+import GameResult from './GameResult'
 
 interface ShowInfo{
   name: string;
   language: string;
+  image: {original: string | undefined} | undefined;
+  summary: string;
 }
 
-async function getShow(): Promise<ShowInfo>{
-
-  while(true){
-    //First we choose a random number from 1-54520 
-    //54540 is the number of series on the database
-    const showID = Math.floor((Math.random() * 54540) + 1);
-
-    //We fetch the TV series from the tvmaze api and change the response to JSON
-    //then, we store the information in the response variable
-    const response = await fetch(`https://api.tvmaze.com/shows/${showID}`);
-    const data: ShowInfo = await response.json();
-
-    //This makes sure that it only choses english tv shows.
-    if(data.language == "English"){ return data; }
-  }
-
-}
 
 function App() {
+
 
   //The following variable stores all the current show information
   //which includes name, language, image, genre and others
@@ -39,40 +27,72 @@ function App() {
   //The player's remaining lives
   let [lives, setLives] = useState(6);
 
-  //This is a method that gets passed to all the buttons so we can know
-  //which letter got pressed by the user
-  const letterSelected = (letter: string) => {
+  //This is the string thats displayed to the player
+  let [hiddenString, setHiddenString] = useState('')
 
-    //if the letter is not present in the show's name we substract one life to the player
-    if(show.name.indexOf(letter) == -1 && show.name.indexOf(letter.toLowerCase()) == -1){
-      setLives(lives - 1)
-    }
-
-    //this deletes one letter from the RegEx pattern
-    setExpression(expression.replace(letter, '')); 
-  }
 
 
   //The first thing we do is call the "getShow" function and set the
   //response as the show's information
   useEffect(() => {
-    getShow().then(res => { SetShow(res); console.log(res) })
+    GetShow().then(res => { 
+      SetShow(res);
+      setHiddenString(res.name.replace(new RegExp(expression, 'ig'), ' _ ') );
+      console.log(res)
+    })
   }, [])
 
 
-  //if we don't have the show's name we display a message. If we have it
-  //then we display all the components
-  const isLoading = typeof show.name == 'undefined' 
-  ? <h1>Loading...</h1> 
-  : <div>
-      <MysteryString name={show.name} expression={expression}/>
-      <Keys letterSelected={letterSelected}/>
-      <Hangman lives={lives}/>
-  </div>
+  useEffect(() => { 
+    setHiddenString(show.name?.replace(new RegExp(expression, 'ig'), ' _ ') );
+  }, [expression])
+
+
+
+  //This is a method that gets passed to all the buttons so we can know
+  //which letter got pressed by the user
+  const letterSelected = (letter: string) => {
     
+    const showUpperCase = show.name.toUpperCase()
+    
+    //if the letter is not present in the show's name we substract one life to the player
+    if(showUpperCase.indexOf(letter) == -1){ setLives(lives - 1) }
+
+    //this deletes one letter from the RegEx pattern
+    setExpression(expression.replace(letter, ''));
+
+  }
+
+  const PlayAgain = () => {
+    SetShow({} as ShowInfo);
+    GetShow().then(res => {
+      SetShow(res);
+      setExpression("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
+      setHiddenString(res.name?.replace(new RegExp(expression, 'ig'), ' _ ') );
+      console.log(res)
+    })
+    setLives(6);
+  }
+
+  let mainComponent = typeof show.name == 'undefined'? <h1>Loading...</h1> :
+  <div>
+    <h1>{hiddenString}</h1>
+    <Keys letterSelected={letterSelected}/>
+    <Hangman lives={lives}/>
+  </div>
+
+  let displayResults = typeof show.name != 'undefined'?
+  <GameResult 
+    winOrLose={lives > 0? true : false}
+    name={show.name}
+    image={show?.image} 
+    summary={show.summary}
+    PlayAgain={PlayAgain}
+  />: null
+
   return (
     <>
-    {isLoading}
+    { hiddenString?.indexOf("_") != -1 && lives > 0? mainComponent : displayResults }
     </>
   );
 }
