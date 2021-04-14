@@ -1,14 +1,12 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './components/App';
+import React, { useState, useEffect } from 'react';
+import { getByTestId, getByText, render, screen, waitFor } from '@testing-library/react';
+import Hangman from './components/Hangman';
+import GetShow from './components/GetShow';
 
-/*test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
-*/
+jest.mock("./components/GetShow");
 
-test('Fake test', () => {
-    expect(true).toBeTruthy();
+test('Lives are properly displayed', () => {
+  render(<Hangman lives={3}/>);
+  const lives = screen.getByText("3", {exact: false})
+  expect(lives).toBeInTheDocument();
 });

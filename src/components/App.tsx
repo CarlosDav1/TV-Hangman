@@ -89,8 +89,9 @@ function App() {
     PlayAgain={PlayAgain}
   />: null
 
+  //Refactor the following line adding "show.name != undefined"
   return (
-    <>
+    <>  
     { hiddenString?.indexOf("_") != -1 && lives > 0? mainComponent : displayResults }
     </>
   );

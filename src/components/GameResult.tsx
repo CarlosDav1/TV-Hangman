@@ -4,11 +4,11 @@ interface props{
     winOrLose: boolean | null,
     name: string,
     image: {original: string | undefined} | undefined,
-    summary: string
+    summary?: string
     PlayAgain: () => void;
 }
 
-function GameResult({winOrLose, name, image, summary, PlayAgain}: props){
+function GameResult({winOrLose, name, image, summary = "No Summary", PlayAgain}: props){
     return(
         <div>
             <h1>{winOrLose? "You Win": "You Lose"}</h1>
