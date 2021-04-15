@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 interface props{
-    name: string;
     expression: string;
-    EndGame: () => void;
+    answer: string;
+    VerifyIfWon: (hidden: string) => void;
 }
 
-let MysteryString = ({name, expression, EndGame}: props) => {
-    let [hiddenString, setHiddenString] = useState('');
+let MysteryString = ({expression, answer, VerifyIfWon}: props) => {
+    const Replace = () => answer.replace(new RegExp(expression, 'ig'), ' _ ');
+    
+    let [hiddenString, setHiddenString] = useState(Replace());
 
-    useEffect(() => {
-
-        //If we have the name of the show we replace it with a regular expression
-        setHiddenString(name.replace(new RegExp(expression, 'ig'), ' _ '));
-        if(name == hiddenString){ EndGame(); console.log('finish') } 
-
-    }, [name, expression]);
+    useEffect(() => { 
+        setHiddenString(Replace());
+        VerifyIfWon(Replace());
+    }, [answer, expression]);
 
     return(<h1>{hiddenString}</h1>);
 }

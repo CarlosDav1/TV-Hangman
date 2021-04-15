@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Keys from './Keys';
-import Hangman from './Hangman'
-import GetShow from './GetShow'
-import GameResult from './GameResult'
+import Hangman from './Hangman';
+import GetShow from './GetShow';
+import GameResult from './GameResult';
+import MysteryString from './MysteryString';
 
 interface ShowInfo{
   name: string;
@@ -11,89 +12,56 @@ interface ShowInfo{
   summary: string;
 }
 
-
 function App() {
-
-
-  //The following variable stores all the current show information
-  //which includes name, language, image, genre and others
   let [show, SetShow] = useState({} as ShowInfo);
-
-  //This is a string that gets converted into a regular expression such as /[ABCDEFG]/ig. 
-  //As the user presses more buttons this string gets shorter.
   let [expression, setExpression] = useState("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
-
-  //The player's remaining lives
   let [lives, setLives] = useState(6);
-
-  //This is the string thats displayed to the player
-  let [hiddenString, setHiddenString] = useState('')
-
-
+  let [isFinished, setTriggerWin] = useState(false);
 
   //The first thing we do is call the "getShow" function and set the
   //response as the show's information
-  useEffect(() => {
-    GetShow().then(res => { 
-      SetShow(res);
-      setHiddenString(res.name.replace(new RegExp(expression, 'ig'), ' _ ') );
-      console.log(res)
-    })
-  }, [])
+  useEffect(() => { GetShow().then(res => { SetShow(res); console.log(res)}) }, [])
 
-
-  useEffect(() => { 
-    setHiddenString(show.name?.replace(new RegExp(expression, 'ig'), ' _ ') );
-  }, [expression])
-
-
+  //We use this method to check if the hidden string is the same as the show's name
+  const VerifyIfWon = (hidden: string) => hidden == show.name? setTriggerWin(true): null;
 
   //This is a method that gets passed to all the buttons so we can know
   //which letter got pressed by the user
   const letterSelected = (letter: string) => {
-    
-    const showUpperCase = show.name.toUpperCase()
-    
-    //if the letter is not present in the show's name we substract one life to the player
-    if(showUpperCase.indexOf(letter) == -1){ setLives(lives - 1)}
-
-    //this deletes one letter from the RegEx pattern
+    if(show.name.toUpperCase().indexOf(letter) == -1){ setLives(lives - 1)}
     setExpression(expression.replace(letter, ''));
-
   }
 
+  //This method resets everything to play again
   const PlayAgain = () => {
+    setTriggerWin(false);
+    setExpression("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
     SetShow({} as ShowInfo);
-    GetShow().then(res => {
-      SetShow(res);
-      setExpression("[ABCDEFGHIJKLMNOPQRSTUVWXYZ]");
-      setHiddenString(res.name?.replace(new RegExp(expression, 'ig'), ' _ ') );
-      console.log(res)
-    })
+    GetShow().then(res => { SetShow(res); console.log(res) })
     setLives(6);
   }
 
-  let mainComponent = typeof show.name == 'undefined'? <h1>Loading...</h1> :
-  <div>
-    <h1>{hiddenString}</h1>
-    <Keys letterSelected={letterSelected}/>
-    <Hangman lives={lives}/>
-  </div>
-
-  let displayResults = typeof show.name != 'undefined'?
-  <GameResult 
-    winOrLose={lives > 0? true : false}
-    name={show.name}
-    image={show?.image} 
-    summary={show.summary}
-    PlayAgain={PlayAgain}
-  />: null
-
-  //Refactor the following line adding "show.name != undefined"
   return (
-    <>  
-    { hiddenString?.indexOf("_") != -1 && lives > 0? mainComponent : displayResults }
-    </>
+    <>{ 
+      
+      !isFinished && lives > 0 && show.name != undefined? 
+        <div>
+          <MysteryString expression={expression} answer={show.name} VerifyIfWon={VerifyIfWon}/>
+          <Keys letterSelected={letterSelected}/>
+          <Hangman lives={lives}/>
+        </div>
+
+      : show.name != undefined? 
+        <GameResult 
+        winOrLose={lives > 0? true : false} 
+        name={show.name}  
+        image={show?.image}  
+        summary={show.summary} 
+        PlayAgain={PlayAgain}/>
+
+      : <h1>Loading...</h1> 
+      
+    }</>
   );
 }
 
