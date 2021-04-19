@@ -20,7 +20,7 @@ function App() {
 
   //The first thing we do is call the "getShow" function and set the
   //response as the show's information
-  useEffect(() => { GetShow().then(res => { SetShow(res); console.log(res)}) }, [])
+  useEffect(() => { GetShow().then(res => SetShow(res)) }, [])
 
   //We use this method to check if the hidden string is the same as the show's name
   const VerifyIfWon = (hidden: string) => hidden == show.name? setTriggerWin(true): null;
@@ -47,9 +47,9 @@ function App() {
       !isFinished && lives > 0 && show.name != undefined
       
       ? <div>
+          <Hangman lives={lives}/>
           <MysteryString expression={expression} answer={show.name} VerifyIfWon={VerifyIfWon}/>
           <Keys letterSelected={letterSelected}/>
-          <Hangman lives={lives}/>
         </div>
 
       : show.name != undefined
