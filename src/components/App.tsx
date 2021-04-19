@@ -44,23 +44,23 @@ function App() {
   return (
     <>{ 
       
-      !isFinished && lives > 0 && show.name != undefined? 
-        <div>
+      !isFinished && lives > 0 && show.name != undefined
+      
+      ? <div>
           <MysteryString expression={expression} answer={show.name} VerifyIfWon={VerifyIfWon}/>
           <Keys letterSelected={letterSelected}/>
           <Hangman lives={lives}/>
         </div>
 
-      : show.name != undefined? 
-        <GameResult 
-        winOrLose={lives > 0? true : false} 
-        name={show.name}  
-        image={show?.image}  
-        summary={show.summary} 
-        PlayAgain={PlayAgain}/>
+      : show.name != undefined
+        ? <GameResult 
+          winOrLose={lives > 0? true : false} 
+          name={show.name}  
+          image={show?.image}  
+          summary={show.summary} 
+          PlayAgain={PlayAgain}/>
 
-      : <h1>Loading...</h1> 
-      
+        : <h1>Loading...</h1> 
     }</>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getByTestId, getByText, render, screen, waitFor } from '@testing-library/react';
-import Hangman from './components/Hangman';
-import GetShow from './components/GetShow';
+import { getByTestId, getByText, render, screen } from '@testing-library/react';
+import Hangman from '../components/Hangman';
+import GetShow from '../components/GetShow';
 
 jest.mock("./components/GetShow");
 
