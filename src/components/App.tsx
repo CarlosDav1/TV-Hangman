@@ -46,7 +46,7 @@ function App() {
       
       !isFinished && lives > 0 && show.name != undefined
       
-      ? <div>
+      ? <div className="container">
           <Hangman lives={lives}/>
           <MysteryString expression={expression} answer={show.name} VerifyIfWon={VerifyIfWon}/>
           <Keys letterSelected={letterSelected}/>

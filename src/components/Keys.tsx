@@ -25,15 +25,14 @@ const Keys = (props: props) => {
 
     return(
         //We map all the letters in the 'options' array as buttons
-        <div>
+        <div className="row">
             {options.map(item => 
-                <button key={`key${item}`} 
-
+                <button 
+                    key={`key${item}`} 
                     onClick={() =>{
                         props.letterSelected(item); 
                         deleteKey(item)
                     }}
-
                 >{item}</button>
             )}
         </div>

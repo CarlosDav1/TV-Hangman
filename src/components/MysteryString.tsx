@@ -16,7 +16,9 @@ let MysteryString = ({expression, answer, VerifyIfWon}: props) => {
         VerifyIfWon(Replace());
     }, [answer, expression]);
 
-    return(<h1>{hiddenString}</h1>);
+    return(
+        <h1 className="hiddenString">{hiddenString}</h1>
+    );
 }
 
 export default MysteryString;
