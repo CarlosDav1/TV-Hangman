@@ -25,9 +25,9 @@ const Keys = (props: props) => {
 
     return(
         //We map all the letters in the 'options' array as buttons
-        <div className="row">
+        <div className="row keysGrid">
             {options.map(item => 
-                <button 
+                <button className="key"
                     key={`key${item}`} 
                     onClick={() =>{
                         props.letterSelected(item); 

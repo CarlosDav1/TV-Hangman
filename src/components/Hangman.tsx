@@ -40,11 +40,7 @@ function Hangman({lives}: props){
     
     useEffect(() => setImage(defineImage(lives)), [lives]);
     
-    return(
-        <div className="row justify-content-center">
-            <img src={image} className="col align-self-center hangman"/>
-        </div>
-    );
+    return(<img src={image} className="hangman"/>);
 }
 
 export default Hangman
