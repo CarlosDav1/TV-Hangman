@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
 body{
     background-color: #fafafa;
+    font-family: 'Roboto', sans-serif;
 }
+
 .hangman{
     display: flex;
     height: 30vh;
@@ -28,15 +32,51 @@ body{
     height: 3rem;
     border-radius: 2rem;
     margin: 0.25rem;
-    color: #fff;
+    color: white;
     background: #0079c9;
     border: none;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;;
 
     &:hover{
-        color: #fff;
         background-color: #5DA2D5;
-        border-color: #5DA2D5;
     }
 }
+
+.resultsContainer{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        //Delete the padding if its a mobile device
+        width: 40vw;
+        min-width: 450px;
+        height: auto;
+        padding: 5rem;
+    }
+
+    .info{
+        display: flex;
+        width: clamp(45ch, 50%, 75ch);
+        align-items: center;
+        padding: 3rem;
+        margin: 3rem;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+
+        .again{
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .win{color: #8FAF7F;}
+        .lose{color: #DA4C4C;}
+
+        p{margin: 1.5rem 0;}
+    }
+}
+
+//Create a media query to solve some problems

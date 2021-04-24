@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 body {
   background-color: #fafafa;
+  font-family: 'Roboto', sans-serif;
 }
 
 .hangman {
@@ -36,7 +38,7 @@ body {
   height: 3rem;
   border-radius: 2rem;
   margin: 0.25rem;
-  color: #fff;
+  color: white;
   background: #0079c9;
   border: none;
   -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
@@ -48,8 +50,61 @@ body {
 }
 
 .key:hover {
-  color: #fff;
   background-color: #5DA2D5;
-  border-color: #5DA2D5;
+}
+
+.resultsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap-reverse;
+      flex-wrap: wrap-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.resultsContainer img {
+  width: 40vw;
+  min-width: 450px;
+  height: auto;
+  padding: 5rem;
+}
+
+.resultsContainer .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: clamp(45ch, 50%, 75ch);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 3rem;
+  margin: 3rem;
+  background-color: white;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.resultsContainer .info .again {
+  background-color: white;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.resultsContainer .info .win {
+  color: #8FAF7F;
+}
+
+.resultsContainer .info .lose {
+  color: #DA4C4C;
+}
+
+.resultsContainer .info p {
+  margin: 1.5rem 0;
 }
 /*# sourceMappingURL=global.css.map */
