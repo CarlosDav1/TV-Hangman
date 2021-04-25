@@ -60,7 +60,7 @@ function App() {
           summary={show.summary} 
           PlayAgain={PlayAgain}/>
 
-        : <h1>Loading...</h1> 
+        : <h1 className="loadText">Loading...</h1> 
     }</>
   );
 }

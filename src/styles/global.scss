@@ -20,6 +20,14 @@ body{
     margin: 0;
 }
 
+.loadText{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .keysGrid{
     display: flex;
     max-width: 600px;
@@ -38,9 +46,7 @@ body{
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;;
 
-    &:hover{
-        background-color: #5DA2D5;
-    }
+    &:hover{  background-color: #5DA2D5;  }
 }
 
 .resultsContainer{
@@ -48,13 +54,13 @@ body{
     flex-wrap: wrap-reverse;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 
     img{
-        //Delete the padding if its a mobile device
-        width: 40vw;
-        min-width: 450px;
+        width: 25vw;
+        min-width: 250px;
         height: auto;
-        padding: 5rem;
+        margin: 3rem;
     }
 
     .info{
@@ -72,11 +78,34 @@ body{
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
         }
 
-        .win{color: #8FAF7F;}
-        .lose{color: #DA4C4C;}
-
-        p{margin: 1.5rem 0;}
+        .win    {  color: #8FAF7F;  }
+        .lose   {  color: #DA4C4C;  }
+        p       {  margin: 1.5rem 0;  }
     }
 }
 
-//Create a media query to solve some problems
+
+@media screen and (max-width: 450px) {
+    .resultsContainer{
+        img{ 
+            padding: 1rem;
+            min-width: 90%;    
+        }
+
+        .info{
+            width: clamp(45ch, 50%, 75ch);
+            margin: 3rem 0;
+            border-radius: 0;
+        }
+    }    
+}
+
+@media screen and (max-width: 884px) {
+    .resultsContainer{
+        height: auto;
+
+        img{ 
+            width: 50vw;    
+        }
+    }    
+}
