@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c1cfeef0.chunk.css",
+    "main.js": "/static/js/main.c0958d85.chunk.js",
+    "main.js.map": "/static/js/main.c0958d85.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e991e9eb.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e991e9eb.js.map",
+    "static/css/2.4c97ca4f.chunk.css": "/static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.ecd5c138.chunk.js": "/static/js/2.ecd5c138.chunk.js",
+    "static/js/2.ecd5c138.chunk.js.map": "/static/js/2.ecd5c138.chunk.js.map",
+    "static/js/3.37552c6b.chunk.js": "/static/js/3.37552c6b.chunk.js",
+    "static/js/3.37552c6b.chunk.js.map": "/static/js/3.37552c6b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.4c97ca4f.chunk.css.map": "/static/css/2.4c97ca4f.chunk.css.map",
+    "static/css/main.c1cfeef0.chunk.css.map": "/static/css/main.c1cfeef0.chunk.css.map",
+    "static/js/2.ecd5c138.chunk.js.LICENSE.txt": "/static/js/2.ecd5c138.chunk.js.LICENSE.txt",
+    "static/media/Hangman.287aadf5.svg": "/static/media/Hangman.287aadf5.svg",
+    "static/media/Hangman1.04119f41.svg": "/static/media/Hangman1.04119f41.svg",
+    "static/media/Hangman2.ba1e1a42.svg": "/static/media/Hangman2.ba1e1a42.svg",
+    "static/media/Hangman3.7efe0cfa.svg": "/static/media/Hangman3.7efe0cfa.svg",
+    "static/media/Hangman4.66a15e84.svg": "/static/media/Hangman4.66a15e84.svg",
+    "static/media/Hangman5.f9362ace.svg": "/static/media/Hangman5.f9362ace.svg",
+    "static/media/Hangman6.0b8819f8.svg": "/static/media/Hangman6.0b8819f8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e991e9eb.js",
+    "static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.ecd5c138.chunk.js",
+    "static/css/main.c1cfeef0.chunk.css",
+    "static/js/main.c0958d85.chunk.js"
+  ]
+}
