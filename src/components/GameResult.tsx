@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import placeholder from '../img/imgPlaceholder.png';
 
 interface props{
     winOrLose: boolean | null,
@@ -11,7 +12,7 @@ interface props{
 function GameResult({winOrLose, name, image, summary = "No Summary", PlayAgain}: props){
     return(
         <div className="resultsContainer">
-            <img src={image?.original} width="100px"/>
+            <img src={image?.original ? image.original : placeholder} width="100px"/>
             <div className="info">
                 <div>
                     <h1 className={winOrLose? "win": "lose"}>{name}</h1>
